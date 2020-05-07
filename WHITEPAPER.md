@@ -26,7 +26,7 @@ _NOTE: This document is under development. Please check regularly for updates!_
   * [Rewarding](#rewarding)
   * [Slashing](#slashing)
 - [Relayers](#relayers)
-  * [Incentives](#incentives)
+  * [BSC Relayers](#bsc-relayers)
   * [Oracle Relayers](#oracle-relayers)
 - [Outlook](#outlook)
 # Motivation
@@ -319,15 +319,15 @@ The package they relay will be verified by the on-chain light client on BSC. The
 
 ### Incentives
 
-There are two major communication types:
+There are two major communications:
 
-1. Client Operations, such as `Cross-Chain Binding`, `Transfer` and `Timeout`: this should be paid by the transaction requesters.
-2. System Synchronization, such as Blockchain Head for Verification, and ValidatorSet Update: this contains block headers and validator set changes of BC, and should be paid by BSC system reward.
+1. Users triggered cross chain packages, such as `bind packge` or `transfer packages`. Users must pay additional fee to BSC relayers as relayer reward. The reward will be shared with the relayers who sync the referenced blockchain headers. Besides, the reward won't be paid the relayers' accounts directly. A reward distribution mechanism will be brought in to avoid monopolization.
+2. System Synchronization, such as `refund package`(caused by failures of oracle modules on BC), special blockchain header synchronization(header contains BC validatorset update), BSC staking package. System reward contract will pay reward to relayers' accounts directly.
 
 If some Relayers have faster networks and better hardware, they can monopolize all the package relaying and leave no reward to others. Thus fewer participants will join for relaying, which encourages centralization and harms the efficiency and security of the network. Ideally, due to the decentralization and dynamic re-election of BSC validators, one Relayer can hardly be always the first to relay every message. But in order to avoid the monopolization further, the rewarding economy is also specially designed to minimize such chance:
 
 1. The reward for Relayers will be only distributed in batches, and one batch will cover a number of successful relayed packages.
-2. The reward a Relayer can get from a batch distribution is not linearly in proportion to their number of successful relayed packages. Instead, except the first a few relays, the more a     Relayer relays during a batch period, the less reward it will collect.
+2. The reward a Relayer can get from a batch distribution is not linearly in proportion to their number of successful relayed packages. Instead, except the first a few relays, the more a Relayer relays during a batch period, the less reward it will collect.
 
 ## Oracle Relayers
 
